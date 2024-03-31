@@ -67,16 +67,18 @@ function App() {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={handleClick}
+            disableElevation
             sx={{ 
               backgroundColor: "transparent", 
               color: "white", 
               fontWeight: "bold",
               "&:hover": {
-                backgroundColor: "transparent",
-                boxShadow: "none",
+                backgroundColor: "#a8a5a5",
+                color: "black",
+                transform: "scale(1.01)"
               },
+              boxShadow: "0px",
               border: "0px",
-              boxShadow: "0px 0px 6px 0px",
               transition: "background-color 0.8s, box-shadow 0.8s, color 0.8s, transform 0.8s"
             }}
           >
@@ -85,8 +87,10 @@ function App() {
               padding: 10,
               textAlign: "center",
               textWrap: "wrap",
+              border: "0px",
+              textShadow: "0px 0px 6px 0px",
             }}>
-            Drag and drop your PDF files here
+            Drag/Select and drop your PDF files here
             </p>
           </Button>
           <input
