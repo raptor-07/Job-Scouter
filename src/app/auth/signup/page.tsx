@@ -17,7 +17,7 @@ export default function Signup() {
   };
   return (
     <div className="min-h-[100vh] flex items-center justify-center ">
-      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_0px_5px_1px_#bb9bf2] bg-white dark:bg-black min-h-[50vh]">
+      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 dark:shadow-[0px_0px_2px_2px_#bb9bf2] bg-white dark:bg-black min-h-[50vh]">
         <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200 text-center">
           Create your account on Job Scouter
         </h2>
