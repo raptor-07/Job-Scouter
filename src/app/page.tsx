@@ -27,7 +27,7 @@ export default function Home() {
               y: [20, -5, 0],
             }}
             transition={{
-              duration: 1.5, // Increase the duration to 1 second
+              duration: 1.8, // Increase the duration to 1 second
               ease: [0.4, 0.0, 0.2, 1],
             }}
             className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto min-w-[100%]"
@@ -49,13 +49,13 @@ export default function Home() {
             y: [20, -5, 0],
           }}
           transition={{
-            duration: 6.5, // Increase the duration to 1 second
-            ease: [0.8, 0.0, 0.2, 1],
+            duration: 7, // Increase the duration to 1 second
+            ease: [0.5, 0.0, 0.2, 1],
           }}
           className="mt-8">
             <Button
               borderRadius="1.75rem"
-              className="bg-white dark:bg-black text-black dark:text-white border-neutral-200 dark:#7242f5  ease-in-out"
+              className="bg-white dark:bg-black text-black dark:text-white border-neutral-200 dark:border-violet-300  ease-in-out"
             >
               TRY FOR FREE
             </Button>

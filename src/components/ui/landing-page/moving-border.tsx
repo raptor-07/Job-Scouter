@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import {
   motion,
@@ -9,6 +10,7 @@ import {
 } from "framer-motion";
 import { useRef } from "react";
 import { cn } from "@/utils/cn";
+import { useRouter } from "next/navigation";
 
 export function Button({
   borderRadius = "1.5rem",
@@ -29,9 +31,11 @@ export function Button({
   className?: string;
   [key: string]: any;
 }) {
+  const router = useRouter();
+
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("Button clicked");
+    router.push("/auth/signup");
   };
   return (
     <Component
@@ -43,9 +47,9 @@ export function Button({
         borderRadius: borderRadius,
       }}
       whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }} // Add this line
+      whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300 }}
-      onClick={onClick} // And this line
+      onClick={onClick}
       {...otherProps}
     >
       <div
@@ -64,7 +68,7 @@ export function Button({
 
       <div
         className={cn(
-          "relative bg-slate-950 border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
+          "relative bg-slate-950 border border-violet-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
           className
         )}
         style={{
@@ -79,7 +83,7 @@ export function Button({
 
 export const MovingBorder = ({
   children,
-  duration = 2000,
+  duration = 3000,
   rx,
   ry,
   ...otherProps
