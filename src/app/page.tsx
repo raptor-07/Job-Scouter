@@ -1,6 +1,5 @@
 "use client";
 
-import { AuroraBackground } from "@/components/ui/landing-page/aurora-background";
 import { motion } from "framer-motion";
 import {
   HeroHighlight,
