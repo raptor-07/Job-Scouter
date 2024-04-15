@@ -26,6 +26,7 @@ export const GlowingStarsBackground = ({
         "bg-[linear-gradient(110deg,#333_0.6%,#222)] p-4 max-w-md min-h-[60vh] min-w-[30vw] rounded-xl border border-[#eaeaea] dark:border-neutral-600 relative",
         className
       )}
+      style={{ cursor: "pointer" }}
     >
       <Illustration mouseEnter={mouseEnter} />
       {children}
