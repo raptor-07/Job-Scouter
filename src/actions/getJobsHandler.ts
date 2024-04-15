@@ -18,6 +18,8 @@ export const getJobsHandler = async (formData: FormData) => {
 
     const jobs: any = await fetchLinkedInJobs(oAiResponse.keywords);
 
+    // console.log("jobs in handler", jobs)
+
     const cleanedJobs = jobs.map((job: any) => {
         return {
             title: job.job_title,
