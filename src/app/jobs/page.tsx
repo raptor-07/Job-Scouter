@@ -10,7 +10,6 @@ import {
 import { DotBackground } from "@/components/ui/dot-background";
 import { TextWriter } from "@/components/ui/jobs/text-writer";
 import { getJobsHandler } from "@/actions/getJobsHandler";
-import { set } from "zod";
 
 const Page = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -20,6 +19,17 @@ const Page = () => {
   const [words, setWords] = useState<string>("");
 
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const localStorageData = JSON.parse(
+      localStorage.getItem("mergedData") || "{}"
+    );
+    if (localStorageData.jobs && localStorageData.market_info) {
+      setJobs(localStorageData.jobs);
+      setWords(localStorageData.market_info);
+      setLoading(true);
+    }
+  }, []);
 
   React.useEffect(() => {
     if (loading && scrollRef.current) {
@@ -45,6 +55,9 @@ const Page = () => {
       setJobs([]);
       setWords("");
 
+      //empty local storage as well
+      localStorage.clear();
+
       let files = Array.from(e.dataTransfer.files);
       console.log(files);
       files = files.filter((file: File) => file.type === "application/pdf");
@@ -68,6 +81,9 @@ const Page = () => {
       setJobs(mergedData.jobs);
       setWords(mergedData.market_info);
       setLoading(true);
+
+      //save data to local storage
+      localStorage.setItem("mergedData", JSON.stringify(mergedData));
     }
   };
 
@@ -76,6 +92,10 @@ const Page = () => {
       setLoading(false);
       setJobs([]);
       setWords("");
+
+      //empty local storage as well
+      localStorage.clear();
+
       let files = Array.from(e.target.files);
       console.log(files);
       files = files.filter((file: File) => file.type === "application/pdf");
@@ -98,6 +118,9 @@ const Page = () => {
       setJobs(mergedData.jobs);
       setWords(mergedData.market_info);
       setLoading(true);
+
+      //save data to local storage
+      localStorage.setItem("mergedData", JSON.stringify(mergedData));
     }
   };
 
