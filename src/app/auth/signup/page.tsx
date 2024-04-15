@@ -9,10 +9,12 @@ import { Input } from "@/components/ui/auth/input";
 import { cn } from "@/utils/cn";
 import { createUser } from "@/actions/createUser";
 import zod from "zod";
+import { useRouter } from "next/navigation";
 
 type FormData = zod.infer<typeof signupSchema>;
 
 export default function Signup() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -147,6 +149,14 @@ export default function Signup() {
             Sign up &rarr;
             <BottomGradient />
           </button>
+          <p
+            className=" underline cursor-pointer text-fuchsia-50 mt-8 text-center"
+            onClick={() => {
+              router.push("/auth/signin");
+            }}
+          >
+            Already Have an Account?
+          </p>
         </form>
       </div>
     </div>
