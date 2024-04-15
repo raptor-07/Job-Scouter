@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef, ChangeEvent, DragEvent } from "react";
 import { HoverEffect } from "@/components/ui/jobs/card-hover";
 import { GlowingStarsBackground } from "@/components/ui/jobs/glowing-bg";
 import {
@@ -8,12 +8,103 @@ import {
   GlowingStarsTitle,
 } from "@/components/ui/jobs/glowing-dots";
 import { DotBackground } from "@/components/ui/dot-background";
+import { TextWriter } from "@/components/ui/jobs/text-writer";
+import { getJobsHandler } from "@/actions/getJobsHandler";
+import { set } from "zod";
 
 const Page = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [jobs, setJobs] = useState<any[]>([]);
+  const [words, setWords] = useState<string>("");
+
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    if (e.dataTransfer.files) {
+      setLoading(false);
+      setJobs([]);
+      setWords("");
+
+      let files = Array.from(e.dataTransfer.files);
+      console.log(files);
+      files = files.filter((file: File) => file.type === "application/pdf");
+
+      if (files.length === 0) {
+        alert("Please upload a PDF file again.");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("resume", files[0]);
+
+      const bodyElement = document.querySelector("body");
+      if (bodyElement) {
+        bodyElement.style.filter = "blur(6px)";
+      }
+
+      const mergedData = await getJobsHandler(formData);
+      if (bodyElement) {
+        bodyElement.style.filter = "none";
+      }
+      setJobs(mergedData.jobs);
+      setWords(mergedData.market_info);
+      setLoading(true);
+    }
+  };
+
+  const handleFileSelect = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setLoading(false);
+      setJobs([]);
+      setWords("");
+      let files = Array.from(e.target.files);
+      console.log(files);
+      files = files.filter((file: File) => file.type === "application/pdf");
+      if (files.length === 0) {
+        alert("Please upload a PDF file again.");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("resume", files[0]);
+
+      const bodyElement = document.querySelector("body");
+      if (bodyElement) {
+        bodyElement.style.filter = "blur(6px)";
+      }
+
+      const mergedData = await getJobsHandler(formData);
+      if (bodyElement) {
+        bodyElement.style.filter = "none";
+      }
+      setJobs(mergedData.jobs);
+      setWords(mergedData.market_info);
+      setLoading(true);
+    }
+  };
+
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div>
       <DotBackground>
-        <div className="flex min-h-[85vh] py-20 items-center justify-center antialiased">
+        <div
+          className="flex min-h-[100vh] py-20 items-center justify-center antialiased p-0 m-0"
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          onClick={handleClick}
+        >
           <GlowingStarsBackground>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[40vw] sm:min-w-[80vw] flex flex-col items-center">
               <GlowingStarsDescription className="-translate-y-5/18 text-nowrap opacity-70 mr-[70px]">
@@ -23,57 +114,25 @@ const Page = () => {
             </div>
           </GlowingStarsBackground>
         </div>
-        <div className="max-w-7xl mx-auto px-8">
-          <HoverEffect items={projects} />
-        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          style={{ display: "none" }}
+          accept=".pdf"
+          onChange={handleFileSelect}
+        />
+        {loading && (
+          <div>
+            <TextWriter words={words} />
+
+            <div className="max-w-7xl mx-auto px-8">
+              <HoverEffect items={jobs} />
+            </div>
+          </div>
+        )}
       </DotBackground>
     </div>
   );
 };
-
-export const projects = [
-  {
-    title: "Stripe",
-    description:
-      "A technology company that builds economic infrastructure for the internet.",
-    company_link: "https://stripe.com",
-    job_link: "https://stripe.com/jobs",
-  },
-  {
-    title: "Netflix",
-    description:
-      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-    company_link: "https://netflix.com",
-    job_link: "https://netflix.com/jobs",
-  },
-  {
-    title: "Apple",
-    description:
-      "A multinational technology company that specializes in consumer electronics, computer software, and online services.",
-    company_link: "https://apple.com",
-    job_link: "https://apple.com/jobs",
-  },
-  {
-    title: "Amazon",
-    description:
-      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-    company_link: "https://amazon.com",
-    job_link: "https://amazon.com/jobs",
-  },
-  {
-    title: "Microsoft",
-    description:
-      "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-    company_link: "https://microsoft.com",
-    job_link: "https://microsoft.com/jobs",
-  },
-  {
-    title: "Google",
-    description:
-      "A multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.",
-    company_link: "https://google.com",
-    job_link: "https://google.com/jobs",
-  },
-];
 
 export default Page;
