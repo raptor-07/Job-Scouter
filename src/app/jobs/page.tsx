@@ -19,6 +19,16 @@ const Page = () => {
   const [jobs, setJobs] = useState<any[]>([]);
   const [words, setWords] = useState<string>("");
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (loading && scrollRef.current) {
+      const top =
+        scrollRef.current.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({ top: top, behavior: "smooth" });
+    }
+  }, [loading]);
+
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
@@ -122,9 +132,8 @@ const Page = () => {
           onChange={handleFileSelect}
         />
         {loading && (
-          <div>
+          <div ref={scrollRef}>
             <TextWriter words={words} />
-
             <div className="max-w-7xl mx-auto px-8">
               <HoverEffect items={jobs} />
             </div>
