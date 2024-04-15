@@ -45,7 +45,7 @@ export const TextWriter = ({
   return (
     <div className={cn("font-bold", className)}>
       <div className="mt-4">
-        <div className=" dark:text-white text-black text-2xl leading-snug tracking-wide">
+        <div className=" dark:text-white text-black text-2xl leading-snug tracking-wide px-[15vw]">
           {renderWords()}
         </div>
       </div>
