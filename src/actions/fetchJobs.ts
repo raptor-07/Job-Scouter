@@ -1,5 +1,7 @@
 "use server";
 
+import '@/envConfig';
+
 export const fetchJobs = async (keywords: string[]) => {
     const rapidApiKey = process.env.RAPID_API_KEY;
     const searchTerms = keywords.slice(0, 4).join('%20');

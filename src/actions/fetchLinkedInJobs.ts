@@ -1,5 +1,7 @@
 "use server";
 
+import '@/envConfig';
+
 export const fetchLinkedInJobs = async (keywords: string[]) => {
     const url = 'https://linkedin-jobs-search.p.rapidapi.com/';
     const rapidApiKey = process.env.RAPID_API_KEY;
