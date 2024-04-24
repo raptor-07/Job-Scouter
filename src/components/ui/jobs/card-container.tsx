@@ -1,14 +1,16 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, px } from "framer-motion";
 import { useState } from "react";
 import { Card } from "./card";
 import { CardDescription } from "./card-description";
 import { CardTitle } from "./card-title";
 import { IconLink } from "@tabler/icons-react";
+import { IconBrandLinkedin } from "@tabler/icons-react";
+import { Chip } from "@nextui-org/chip";
 
-export const HoverEffect = ({
+export const CardContainer = ({
   items,
   className,
 }: {
@@ -17,6 +19,7 @@ export const HoverEffect = ({
     description: string;
     company_link: string;
     job_link: string;
+    platform: string;
   }[];
   className?: string;
 }) => {
@@ -26,7 +29,7 @@ export const HoverEffect = ({
     <div className={cn("grid grid-cols-1 py-10", className)}>
       {items.map((item, idx) => (
         <div
-          key={item?.company_link}
+          key={idx}
           className="relative group block p-6 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -60,6 +63,13 @@ export const HoverEffect = ({
                 <IconLink stroke={2} />
               </a>
             </div>
+            <Chip className=" mt-4">
+              {item.platform === "LinkedIn" ? (
+                <IconBrandLinkedin className=" bg-sky-300 w-10 border-l-violet-800"/>
+              ) : (
+                <img src={item.platform} className="w-14" />
+              )}
+            </Chip>
           </Card>
         </div>
       ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, ChangeEvent, DragEvent } from "react";
-import { HoverEffect } from "@/components/ui/jobs/card-hover";
+import { CardContainer } from "@/components/ui/jobs/card-container";
 import { GlowingStarsBackground } from "@/components/ui/jobs/glowing-bg";
 import {
   GlowingStarsDescription,
@@ -34,7 +34,7 @@ const Page = () => {
   React.useEffect(() => {
     if (loading && scrollRef.current) {
       const top =
-        scrollRef.current.getBoundingClientRect().top + window.pageYOffset;
+        scrollRef.current.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({ top: top, behavior: "smooth" });
     }
   }, [loading]);
@@ -158,7 +158,7 @@ const Page = () => {
           <div ref={scrollRef}>
             <TextWriter words={words} />
             <div className="max-w-7xl mx-auto px-8">
-              <HoverEffect items={jobs} />
+              <CardContainer items={jobs} />
             </div>
           </div>
         )}

@@ -54,7 +54,7 @@ export default function Home() {
           className="mt-8">
             <Button
               borderRadius="1.75rem"
-              className="bg-white dark:bg-black text-black dark:text-white border-neutral-200 dark:border-violet-300  ease-in-out"
+              className="bg-white dark:bg-black text-black dark:text-white border-indigo-200 dark:border-violet-300  ease-in-out"
             >
               TRY FOR FREE
             </Button>
